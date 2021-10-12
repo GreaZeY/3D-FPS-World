@@ -4,7 +4,7 @@ A 200x200 FPS world using enable3D ThreeJS and ammo physics.
 ![image](https://raw.githubusercontent.com/GreaZeY/3D-FPS-World/main/screenshot/ezgif-6-79b78de4fe82.gif)
 
 
-## Technologies used
+## enable3d
 * enable3d A standalone 3D Framework on top of three-graphics.
 * @enable3d/phaser-extension Allows to integrate the three-graphics package into your Phaser 3 Games.
 * @enable3d/ammo-physics The core Physics package. Wraps ammo.js physics.
