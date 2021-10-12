@@ -1,7 +1,7 @@
 # 3D FPS World
 
 A 200x200 FPS world using enable3D ThreeJS and ammo physics.
-![image](https://raw.githubusercontent.com/GreaZeY/3D-FPS-World/main/screenshot/ezgif-6-79b78de4fe82.gif)
+![image](https://raw.githubusercontent.com/GreaZeY/3D-FPS-World/main/screenshots/ss.gif)
 
 
 ## enable3d
