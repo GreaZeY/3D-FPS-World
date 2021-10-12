@@ -52,8 +52,9 @@ class MainScene extends Scene3D {
     this.light.shadow.bias = -0.01
     // debug shadow
     // physics debug
-    this.third.physics.debug?.enable();
+    // this.third.physics.debug?.enable();
     this.third.renderer.gammaFactor = 1.5;
+    this.third.haveSomeFun(100)
     // set a per scene physics
     this.third.physics.setGravity(0, -9.81, 0);
     //add grass
@@ -72,15 +73,15 @@ class MainScene extends Scene3D {
 
 
 ///////////////////////////////// loading models
-    this.third.load.fbx("/assets/glb/fps.fbx").then((object) => {
-      const rifle = object;
+    this.third.load.gltf("/assets/glb/M4A12.glb").then((object) => {
+      const rifle = object.scene;
       console.log("rifle", object);
 
       this.rifle = new ExtendedObject3D();
       // this.rifle.name = "M4A1-Nightmare";
       this.rifle.add(rifle);
       this.third.add.existing(this.rifle);
-      this.rifle.rotation.set(0, Math.PI / 2, 0)
+     
       this.rifle.traverse((child) => {
         if (child.isMesh) {
           child.castShadow = child.receiveShadow = true;
@@ -90,25 +91,8 @@ class MainScene extends Scene3D {
     });
 
     ///////////////////////////////////////////////////
-    this.addmodel('OpenBarn',{x:50,y:0,z:-50},{x:0.02,y:0.02,z:0.02},this.barn)
-    this.addmodel('Fence',{x:10,y:0,z:-10},{x:0.01,y:0.01,z:0.01},this.fence1)
-    this.addmodel('Fence2',{x:10,y:0.1,z:10},{x:0.02,y:0.02,z:0.02},this.fence2)
-    
-    this.addmodel('Fence2',{x:100,y:0.1,z:199.5},{x:0.1,y:0.1,z:0.1},this.fence21)
-    
-    // this.addmodel('Fence2',{x:-190,y:0.1,z:-199.5},0.08,this.fence22)
-    // this.addmodel('Fence2',{x:-190,y:0.1,z:199.5},0.08,this.fence23)
-    // this.addmodel('Fence2',{x:190,y:0.1,z:-199.5},0.08,this.fence24)
+    this.addmodel('OpenBarn',{x:0,y:0,z:20},{x:0.02,y:0.02,z:0.02},this.barn)
    
-
-    // this.addmodel('Fence2',{x:194,y:0.1,z:199.5},0.02,this.fence21)
-    // this.addmodel('Fence2',{x:-194,y:0.1,z:-199.5},0.02,this.fence22)
-    // this.addmodel('Fence2',{x:-194,y:0.1,z:199.5},0.02,this.fence23)
-    // this.addmodel('Fence2',{x:194.5,y:0.1,z:-199.5},0.02,this.fence24)
-    // this.addmodel('Fence2',{x:-194,y:0.1,z:199.5},0.02,this.fence23)
-    
-    
-    
 ///////////////////////////////////////////////////////////////////////////////
     // add red dot
     this.redDot = this.add.circle(
@@ -169,14 +153,15 @@ class MainScene extends Scene3D {
        
   addmodel(name,pos,scaling,cvar){
     this.third.load.fbx(`/assets/fbx/${name}.fbx`).then(object => {
-
-      cvar = new ExtendedObject3D()
+      cvar = object
+      this.cvar = new ExtendedObject3D()
       this.third.add.existing(cvar);
     cvar.position.set(pos.x,pos.y,pos.z)
     cvar.scale.set(scaling.x,scaling.y,scaling.z)
+    cvar.rotation.set(0, Math.PI, 0)
     this.third.physics.add.existing(cvar,{
       shape: 'concave',
-      mass: 1000,
+      mass: 100000,
       collisionFlags: 0,
       autoCenter: false,
       
@@ -364,8 +349,7 @@ class MainScene extends Scene3D {
         pos.multiplyScalar(24);
 
         sphere.body.applyForce(pos.x * force, pos.y * force, pos.z * force);
-        // sphere.body.setFriction(0.5);
-        // sphere.body.setAngularFactor(0, 0, 0);
+       
       }
     }
   }
